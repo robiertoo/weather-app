@@ -14,4 +14,11 @@ import TheTitle from '@/components/TheTitle';
 import SearchBox from '@/components/SearchBox'
 import CapitalsTables from './components/CapitalsTables';
 import CityDetails from './components/CityDetails';
+import { UseCityStore } from './store/city';
+
+const store = UseCityStore();
+
+const { findCity } = store;
+
+findCity('São Paulo');
 </script>
