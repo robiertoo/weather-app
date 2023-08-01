@@ -1,0 +1,38 @@
+<template>
+    <table>
+        <thead>
+            <tr class="text-slate-700">
+                <th>Min</th>
+                <th>Max</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0º</td>
+                <td>0º</td>
+                <td>City</td>
+            </tr>
+            <tr>
+                <td>0º</td>
+                <td>0º</td>
+                <td>City</td>
+            </tr>
+            <tr>
+                <td>0º</td>
+                <td>0º</td>
+                <td>City</td>
+            </tr>
+            <tr>
+                <td>0º</td>
+                <td>0º</td>
+                <td>City</td>
+            </tr>
+            <tr>
+                <td>0º</td>
+                <td>0º</td>
+                <td>City</td>
+            </tr>
+        </tbody>
+    </table>
+</template>

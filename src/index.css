@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 #app {
-    @apply h-screen w-screen bg-gradient-to-b from-orange-600 to-yellow-500 py-10;
+    @apply h-screen w-screen bg-gradient-to-b from-orange-600 to-yellow-500 py-10 px-10;
 }
