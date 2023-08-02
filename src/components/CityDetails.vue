@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-1/2 bg-white mt-10" v-if="city">
+    <div class="w-full h-1/2 bg-white mt-10" v-if="city && ! isLoading">
         <div class="w-full h-4/6">
             <div class="w-full">
                 {{ city.name }}, ES - {{ city.country }}
@@ -61,5 +61,5 @@ import { storeToRefs } from 'pinia';
 
 const store = UseCityStore();
 
-const { city } = storeToRefs(store);
+const { city, isLoading } = storeToRefs(store);
 </script>

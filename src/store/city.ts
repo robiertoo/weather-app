@@ -1,21 +1,23 @@
 import { defineStore } from 'pinia'
 import { Ref, ref } from 'vue';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { useTemperatureConverter } from '@/composables/temperatureConverter'
 
 type City = {
   name: string;
   country: string;
-  temperature: Float32Array;
-  temperatureMinimum: Float32Array;
-  temperatureMaximum: Float32Array;
-  temperatureFeelsLike: Float32Array;
+  temperature: number;
+  temperatureMinimum: number;
+  temperatureMaximum: number;
+  temperatureFeelsLike: number;
   humidity: number;
-  windSpeed: Float32Array;
+  windSpeed: number;
   weather: string;
 };
 
 export const UseCityStore = defineStore('city', () => {
   const city: Ref<City | null> = ref(null);
+  const isLoading: Ref<boolean> = ref(false);
   
   function setCity(response: AxiosResponse): void {
     const { data } = response;
@@ -23,10 +25,10 @@ export const UseCityStore = defineStore('city', () => {
     city.value = {
       name: data.name,
       country: data.sys.country,
-      temperature: data.main.temp,
-      temperatureMinimum: data.main.temp_min,
-      temperatureMaximum: data.main.temp_min,
-      temperatureFeelsLike: data.main.feels_like,
+      temperature: useTemperatureConverter(data.main.temp),
+      temperatureMinimum: useTemperatureConverter(data.main.temp_min),
+      temperatureMaximum: useTemperatureConverter(data.main.temp_max),
+      temperatureFeelsLike: useTemperatureConverter(data.main.feels_like),
       humidity: data.main.humidity,
       windSpeed: data.wind.speed,
       weather: data.weather.main,
@@ -40,8 +42,14 @@ export const UseCityStore = defineStore('city', () => {
       + '&q=' 
       + name;
 
-    axios.get(url).then((response: AxiosResponse) => setCity(response));
+
+    isLoading.value = true;
+
+    axios.get(url)
+      .then((response: AxiosResponse) => setCity(response))
+      .catch((error: AxiosError) => console.log(error))
+      .finally(() => isLoading.value = false);
   }
 
-  return { city, findCity };
+  return { city, isLoading, findCity };
 })
