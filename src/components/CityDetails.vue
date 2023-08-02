@@ -1,31 +1,31 @@
 <template>
-    <div class="w-full h-1/2 bg-white mt-10">
+    <div class="w-full h-1/2 bg-white mt-10" v-if="city">
         <div class="w-full h-4/6">
             <div class="w-full">
-                City, ES - Country
+                {{ city.name }}, ES - {{ city.country }}
             </div>
             
             <div>
-                20º C Nublado
+                {{ city.temperature }}º C {{ city.weather }}
             </div>
     
             <div class="flex">
                 <div>
-                    min-max
+                    {{ city.temperatureMinimum }}-{{ city.temperatureMaximum }}
                 </div>
                 
                 <div>
-                    sensação 19º C
+                    sensação {{ city.temperatureFeelsLike }}º C
                 </div>
             </div>
             
             <div class="flex">
                 <div>
-                    vento
+                    {{ city.windSpeed }}
                 </div>
                 
                 <div>
-                    humidade
+                    {{ city.humidity }}
                 </div>
             </div>
         </div>
@@ -54,3 +54,12 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import { UseCityStore } from '@/store/city';
+import { storeToRefs } from 'pinia';
+
+const store = UseCityStore();
+
+const { city } = storeToRefs(store);
+</script>
